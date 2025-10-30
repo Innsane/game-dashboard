@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GameDashboard.Entities;
+namespace GameDashboard.Entities.Configurations;
 
 public class PlaySessionConfiguration : IEntityTypeConfiguration<PlaySession>
 {

@@ -5,6 +5,7 @@ namespace GameDashboard.Entities;
 
 public class UserGame
 {
+    public int Id { get; set; }
     public GameState State { get; set; } = GameState.Future;
     public int? Rating { get; set; } // 1..10
     public string? Review { get; set; } // public

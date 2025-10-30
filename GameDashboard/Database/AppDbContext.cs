@@ -8,10 +8,11 @@ public class AppDbContext : DbContext
     public DbSet<Game> Games => Set<Game>();
     public DbSet<PlaySession> PlaySessions => Set<PlaySession>();
     public DbSet<UserGame> UserGames => Set<UserGame>();
+    public DbSet<User> Users => Set<User>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
-        optionsBuilder.UseSqlite("Data Source=game-dashboard.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

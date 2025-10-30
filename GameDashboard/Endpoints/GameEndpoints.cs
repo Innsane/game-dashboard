@@ -13,15 +13,15 @@ public static class GameEndpoints
             .WithTags("Games")
             .WithOpenApi();
 
-        group.MapGet("/", async (AppDbContext db) =>
-            await db.Games.AsNoTracking().ToListAsync());
+        group.MapGet("/", async (AppDbContext context) =>
+            await context.Games.AsNoTracking().ToListAsync());
 
-        group.MapGet("/{id:int}", async (Guid id, AppDbContext db) =>
-            await db.Games.FindAsync(id) is { } g 
+        group.MapGet("/{id:int}", async (int id, AppDbContext context) =>
+            await context.Games.FindAsync(id) is { } g 
                 ? Results.Ok(g) 
                 : Results.NotFound());
 
-        group.MapPost("/", async (GameDto dto, AppDbContext db) =>
+        group.MapPost("/", async (GameDto dto, AppDbContext context) =>
         {
             var game = new Game
             {
@@ -30,15 +30,15 @@ public static class GameEndpoints
                 Released = dto.Released
             };
             
-            db.Games.Add(game);
-            await db.SaveChangesAsync();
+            context.Games.Add(game);
+            await context.SaveChangesAsync();
             
             return Results.Created($"/api/games/{game.Id}", game);
         });
 
-        group.MapPut("/{id:int}", async (Guid id, GameDto dto, AppDbContext db) =>
+        group.MapPut("/{id:int}", async (int id, GameDto dto, AppDbContext context) =>
         {
-            var game = await db.Games.FindAsync(id);
+            var game = await context.Games.FindAsync(id);
             if (game is null)
             {
                 return Results.NotFound();
@@ -47,7 +47,7 @@ public static class GameEndpoints
             game.Title = dto.Title;
             game.Platform = dto.Platform;
 
-            await db.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return Results.NoContent();
         });
 

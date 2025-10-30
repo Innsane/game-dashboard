@@ -1,16 +1,32 @@
-@GameDashboard_HostAddress = http://localhost:5146
+@localhost = http://localhost:5146
 
-GET {{GameDashboard_HostAddress}}/weatherforecast/
+GET {{localhost}}/openapi/v1.json
+###
+
+GET {{localhost}}/api/games/
 Accept: application/json
 ###
 
-GET {{GameDashboard_HostAddress}}/api/games/
+GET {{localhost}}/api/games/{{id}}
 Accept: application/json
 ###
 
-GET {{GameDashboard_HostAddress}}/api/games/{{id}}
-Accept: application/json
+POST {{localhost}}/api/games/
+Content-Type: application/json
+
+{
+  "platform": "Steam",
+  "released": "2025-10-12",
+  "title": "League of Legends"
+}
 ###
 
-POST {{GameDashboard_HostAddress}}/api/games
-Accept: application/json
+PUT {{localhost}}/api/games/{{id}}
+Content-Type: application/json
+
+{
+  "platform": "GOG",
+  "released": "9999-10-12",
+  "title": "Edited Title"
+}
+###
